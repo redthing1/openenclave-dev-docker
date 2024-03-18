@@ -1,6 +1,11 @@
 *.o
 *.a
 *.so
+*_t.c
+*_t.h
+*_u.c
+*_u.h
+*_args.h
 
 /enclave/*enclave
 /enclave/*enclave.signed
