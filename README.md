@@ -24,3 +24,15 @@ make -j
 # run the helloworld sample in sgx simulation mode
 ./host/helloworld_host ./enclave/enclave.signed --simulate
 ```
+
+to run the demo directly in this repo:
+```sh
+# mount this dir into the container
+sudo docker run --device <sgx_device> --rm -it -v $(pwd):/prj openenclave-dev
+# inside the container:
+cd /prj/demo
+. /opt/openenclave/share/openenclave/openenclaverc
+make -j
+# run the helloworld sample in sgx simulation mode
+./host/helloworld_host ./enclave/enclave.signed --simulate
+```

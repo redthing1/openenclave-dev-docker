@@ -1,0 +1,8 @@
+*.o
+*.a
+*.so
+
+/enclave/*enclave
+/enclave/*enclave.signed
+*_host
+*.pem
