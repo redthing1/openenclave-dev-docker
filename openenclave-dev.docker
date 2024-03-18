@@ -15,7 +15,7 @@ RUN git clone --recursive https://github.com/openenclave/openenclave.git ~/opene
     && ninja install \
     && ls /opt/openenclave
 
-# cool shell
+# configure zsh
 RUN true \
     && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install \
     && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
@@ -31,7 +31,7 @@ RUN true \
     && usermod --shell /bin/zsh root \
     # set hostname
     && echo "oedev" > /etc/hostname \
-    && echo "Fancy shell installed"
+    && echo "zsh configured"
 
 # default to running zsh
 CMD ["/bin/zsh", "-l"]
