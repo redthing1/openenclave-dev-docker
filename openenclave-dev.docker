@@ -1,0 +1,37 @@
+FROM openenclavedockerregistry.azurecr.io/oetools-20.04:latest
+
+# install additional packages
+RUN apt update && apt install -y \
+  sudo bash zsh curl wget make git \
+  && apt clean && rm -rf /var/lib/apt/lists/*
+
+# build and install openenclave sdk
+RUN git clone --recursive https://github.com/openenclave/openenclave.git ~/openenclave \
+    && cd ~/openenclave \
+    && mkdir build \
+    && cd build \
+    && cmake .. -G Ninja \
+    && ninja \
+    && ninja install \
+    && ls /opt/openenclave
+
+# cool shell
+RUN true \
+    && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install \
+    && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+    # edit the config to add fzf to plugins
+    && sed -i 's/plugins=(git)/plugins=(fzf)/g' /root/.zshrc \
+    # install zsh-autosuggestions
+    && git clone https://github.com/zsh-users/zsh-autosuggestions /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions \
+    # install zsh-syntax-highlighting
+    && git clone https://github.com/zsh-users/zsh-syntax-highlighting /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting \
+    # change the theme
+    && sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="cypher"/g' /root/.zshrc \
+    # set default shell
+    && usermod --shell /bin/zsh root \
+    # set hostname
+    && echo "oedev" > /etc/hostname \
+    && echo "Fancy shell installed"
+
+# default to running zsh
+CMD ["/bin/zsh", "-l"]
