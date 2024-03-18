@@ -30,7 +30,7 @@ to run the demo directly in this repo:
 # mount this dir into the container
 sudo docker run --device <sgx_device> --rm -it -v $(pwd):/prj openenclave-dev
 # inside the container:
-cd /prj/demo
+cd /prj/demo/helloworld
 . /opt/openenclave/share/openenclave/openenclaverc
 make -j
 # run the helloworld sample in sgx simulation mode
