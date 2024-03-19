@@ -54,3 +54,15 @@ make -j
 # run the helloworld sample in sgx simulation mode
 ./host/helloworld_host ./enclave/enclave.signed --simulate
 ```
+
+# release
+
+export the built container image:
+```sh
+docker save openenclave-dev | zstd --compress -T0 --long -16 > /path/to/openenclave-dev.tar.zst
+```
+
+load the built container image:
+```sh
+zstd -c -d /path/to/openenclave-dev.tar.zst | docker load
+```
