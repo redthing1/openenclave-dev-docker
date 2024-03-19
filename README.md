@@ -2,7 +2,7 @@
 
 docker image for openenclave development
 
-+ based on the [offiical image](https://github.com/openenclave/openenclave/blob/master/DOCKER_IMAGES.md)
++ based on the [offiical openenclave base image](https://github.com/openenclave/openenclave/blob/45280ac3134cfa8f74eb2fe9c911ec0dc2727dbb/.jenkins/infrastructure/docker/dockerfiles/linux/base/README.md)
 + builds the sdk within the container
 + can build openenclave projects to binaries
 + does not require working sgx, only simulation mode
