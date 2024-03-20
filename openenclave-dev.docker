@@ -11,7 +11,8 @@ RUN pip3 install meson
 
 # install dlang
 RUN curl -fsS https://dlang.org/install.sh | bash -s install ldc-1.37.0 \
-    && echo "source ~/dlang/ldc-1.37.0/activate" >> ~/.bashrc
+    && sed -i 's/export PS1/# export PS1/g' ~/dlang/ldc-1.37.0/activate \
+    && echo "source ~/dlang/ldc-1.37.0/activate" >> ~/.bash_profile
 
 # build and install openenclave sdk
 RUN git clone --recursive https://github.com/openenclave/openenclave.git ~/openenclave \
@@ -40,6 +41,8 @@ RUN true \
     && usermod --shell /bin/zsh root \
     # set hostname
     && echo "oedev" > /etc/hostname \
+    # source bash_profile
+    && echo "source ~/.bash_profile" >> /root/.zshrc \
     && echo "zsh configured"
 
 # default to running zsh
