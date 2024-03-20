@@ -3,7 +3,15 @@ FROM openenclavedockerregistry.azurecr.io/oetools-20.04:latest
 # install additional packages
 RUN apt update && apt install -y \
   sudo bash zsh curl wget make git \
+  python3-distutils \
   && apt clean && rm -rf /var/lib/apt/lists/*
+
+# install meson
+RUN pip3 install meson
+
+# install dlang
+RUN curl -fsS https://dlang.org/install.sh | bash -s install ldc-1.37.0 \
+    && echo "source ~/dlang/ldc-1.37.0/activate" >> ~/.bashrc
 
 # build and install openenclave sdk
 RUN git clone --recursive https://github.com/openenclave/openenclave.git ~/openenclave \
